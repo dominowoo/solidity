@@ -364,6 +364,13 @@ bool CompilerStack::parse()
 				auto it = solidity::solstdlib::sources.find(import->path());
 				if (it != solidity::solstdlib::sources.end())
 				{
+					if (!source.ast->annotation().useStdlib.set())
+						solThrow(
+							CompilerError,
+							"Given source file not found: " + import->path() + ". " +
+							"If you want to enable the standard library, you may do so with 'pragma stdlib;'."
+						);
+
 					auto [name, content] = *it;
 					m_sources[name].charStream = make_unique<CharStream>(content, name);
 					sourcesToParse.push_back(name);

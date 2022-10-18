@@ -1110,7 +1110,6 @@ ASTPointer<TypeName> Parser::parseTypeName()
 		unsigned secondSize;
 		tie(firstSize, secondSize) = m_scanner->currentTokenInfo();
 		ElementaryTypeNameToken elemTypeName(token, firstSize, secondSize);
-		ASTNodeFactory nodeFactory(*this);
 		nodeFactory.markEndPosition();
 		advance();
 		auto stateMutability = elemTypeName.token() == Token::Address
